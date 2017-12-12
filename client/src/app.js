@@ -1,3 +1,4 @@
+var libraryView = require('./views/libraryView');
 
 var app = function(){
   var url = 'http://localhost:3000/library';
@@ -14,7 +15,8 @@ var makeRequest = function(url, callback){
 var requestComplete = function(){
   if(this.status != 200) return;
   var jsonString = this.responseText;
-  var library = JSON.parse(jsonString);
+  var books = JSON.parse(jsonString);
+	new libraryView(books)
 }
 
 

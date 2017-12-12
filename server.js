@@ -26,10 +26,31 @@ app.get('/', function(req, res){
 });
 
 app.get("/library", function(req, res){
-  var cursor = db.collection("books").find().toArray(function(err, results){
+  db.collection("books").find().toArray(function(err, results){
     if(err){
       console.log(err);
     }
     res.json(results);
   })
 });
+
+app.post("/library", function(req, res){
+  db.collection("books").save(req.body, function(err, result){
+    if(err){
+      return console.log(err);
+    }
+    console.log("saved to db");
+    res.redirect("/");
+  });
+});
+
+app.post("/library/delete", function(req, res){
+  db.collection('books').remove();
+  res.redirect("/");
+})
+
+
+//
+// filmRouter.get('/:id', function(req, res){
+//   res.json(films[req.params.id])
+// });
